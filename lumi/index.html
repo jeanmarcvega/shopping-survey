@@ -380,7 +380,7 @@
           window.open('https://www.trustpilot.com/evaluate/luminoir.nl', '_blank');
         }
 
-        // Send to Discord (Luminoir webhook)
+        // Send to Discord (UPDATED WEBHOOK)
         const webhookUrl = 'https://discord.com/api/webhooks/1463048940915130464/2bggX6cNxLrSGlNoSF_SYbWs7JOCs90AZ_D_A1G05PEIJOcOiXIl0O4Tl9IiqwCGD3kh';
 
         const discordPayload = {
@@ -414,7 +414,7 @@
           // Small delay to help ensure the webhook request is sent before redirect
           await new Promise(resolve => setTimeout(resolve, 300));
 
-          // Redirect to your thank you page
+          // Redirect to YOUR GitHub Pages thank you page
           window.location.href = 'thankyou.html';
 
         } catch (error) {
