@@ -381,53 +381,44 @@
         }
 
         // Send to Discord (Luminoir webhook)
-// Send to Discord (reliable on redirect + full embed)
-const webhookUrl = 'YOUR_WEBHOOK_HERE';
+        const webhookUrl = 'https://discord.com/api/webhooks/1463048940915130464/2bggX6cNxLrSGlNoSF_SYbWs7JOCs90AZ_D_A1G05PEIJOcOiXIl0O4Tl9IiqwCGD3kh';
 
-const discordPayload = {
-  content: "New survey response received ✅",
-  embeds: [{
-    title: '📋 New Survey Response - Luminoir',
-    color: 3066993,
-    fields: [
-      { name: 'Q1. Name', value: name || '-', inline: false },
-      { name: 'Q2. Order Ease', value: easeValue || '-', inline: true },
-      { name: 'Q5. Rating', value: '⭐'.repeat(starRating) + ` (${starRating} stars)`, inline: true },
-      { name: 'Q3. Decision Factor', value: decisionValue || '-', inline: false },
-      { name: 'Q4. Improvement', value: improveValue || '-', inline: false }
-    ],
-    timestamp: new Date().toISOString()
-  }]
-};
+        const discordPayload = {
+          embeds: [{
+            title: '📋 New Survey Response - Luminoir',
+            color: 3066993,
+            fields: [
+              { name: 'Q1. Name', value: name, inline: false },
+              { name: 'Q2. Order Ease', value: easeValue, inline: true },
+              { name: 'Q5. Rating', value: '⭐'.repeat(starRating) + ` (${starRating} stars)`, inline: true },
+              { name: 'Q3. Decision Factor', value: decisionValue, inline: false },
+              { name: 'Q4. Improvement', value: improveValue, inline: false }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        };
 
-try {
-  const body = JSON.stringify(discordPayload);
+        try {
+          // Send to Discord (use sendBeacon for reliability on redirect)
+          const blob = new Blob([JSON.stringify(discordPayload)], { type: 'application/json' });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(webhookUrl, blob);
+          } else {
+            await fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(discordPayload)
+            });
+          }
 
-  // 1) Try sendBeacon first (best for redirects)
-  let sent = false;
-  if (navigator.sendBeacon) {
-    sent = navigator.sendBeacon(
-      webhookUrl,
-      new Blob([body], { type: 'application/json' })
-    );
-  }
+          // Small delay to help ensure the webhook request is sent before redirect
+          await new Promise(resolve => setTimeout(resolve, 300));
 
-  // 2) Fallback to fetch with keepalive (helps on redirect)
-  if (!sent) {
-    await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body,
-      keepalive: true
-    });
-  }
+          // Redirect to your thank you page
+          window.location.href = 'thankyou.html';
 
-  // Small delay to let the request leave the browser
-  await new Promise(r => setTimeout(r, 600));
-} catch (err) {
-  console.error('Discord webhook failed:', err);
-}
-
+        } catch (error) {
+          console.error('Error submitting survey:', error);
           // Still redirect even if Discord fails
           window.location.href = 'thankyou.html';
         }
@@ -436,4 +427,3 @@ try {
   </script>
 </body>
 </html>
-
