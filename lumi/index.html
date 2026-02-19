@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Luminoir Survey</title>
+  <title>Lumoira Survey</title>
 
-  <!-- Shopify Survey Form - Luminoir -->
+  <!-- Shopify Survey Form - Lumoira -->
   <style>
     :root{
       --bg:#f3f4f6;
@@ -377,15 +377,15 @@
         // Open Trustpilot FIRST (before any async operations) for mobile compatibility
         // Mobile browsers block window.open() if not in direct user action
         if (starRating >= 3) {
-          window.open('https://www.trustpilot.com/evaluate/luminoir.nl', '_blank');
+          window.open('https://www.trustpilot.com/evaluate/lumoira.co', '_blank');
         }
 
-        // Send to Discord (UPDATED WEBHOOK)
+        // Send to Discord (keep your webhook or replace it)
         const webhookUrl = 'https://discord.com/api/webhooks/1463048940915130464/2bggX6cNxLrSGlNoSF_SYbWs7JOCs90AZ_D_A1G05PEIJOcOiXIl0O4Tl9IiqwCGD3kh';
 
         const discordPayload = {
           embeds: [{
-            title: '📋 New Survey Response - Luminoir',
+            title: '📋 New Survey Response - Lumoira',
             color: 3066993,
             fields: [
               { name: 'Q1. Name', value: name, inline: false },
@@ -414,7 +414,7 @@
           // Small delay to help ensure the webhook request is sent before redirect
           await new Promise(resolve => setTimeout(resolve, 300));
 
-          // Redirect to YOUR GitHub Pages thank you page
+          // Redirect to thank you page
           window.location.href = 'thankyou.html';
 
         } catch (error) {
