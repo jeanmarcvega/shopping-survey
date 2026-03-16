@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Decolumo Klantfeedback</title>
+
+<style>
+:root{
+--bg:#f3f4f6;
+--card:#ffffff;
+--muted:#666;
+--text:#111;
+--border:#ddd;
+--focus:#111;
+--danger:#d32f2f;
+--radius:14px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,sans-serif;
+line-height:1.4;
+}
+
+.survey-container{
+max-width:720px;
+margin:24px auto;
+padding:24px;
+background:var(--card);
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+.survey-container h2{
+margin:0 0 10px 0;
+font-size:22px;
+font-weight:600;
+letter-spacing:0.06em;
+text-transform:uppercase;
+}
+
+.survey-container p{
+margin:0 0 24px 0;
+color:var(--muted);
+font-size:15px;
+}
+
+.question{
+margin-bottom:20px;
+padding:16px;
+border:1px solid rgba(0,0,0,0.06);
+border-radius:12px;
+background:#fff;
+}
+
+.question-label{
+display:block;
+margin-bottom:12px;
+font-weight:650;
+font-size:15px;
+}
+
+.text-input{
+width:100%;
+padding:14px;
+border:1px solid var(--border);
+border-radius:10px;
+font-size:16px;
+}
+
+.text-input:focus{
+outline:none;
+border-color:var(--focus);
+box-shadow:0 0 0 3px rgba(0,0,0,0.08);
+}
+
+.radio-group{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.radio-label{
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px;
+border-radius:10px;
+border:1px solid rgba(0,0,0,0.06);
+background:#fafafa;
+cursor:pointer;
+}
+
+.radio-label:hover{
+background:#f5f5f5;
+}
+
+.radio-label input{
+width:18px;
+height:18px;
+accent-color:#111;
+}
+
+.stars-group{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.star-btn{
+padding:10px 12px;
+border:2px solid rgba(0,0,0,0.12);
+background:#fff;
+border-radius:12px;
+cursor:pointer;
+font-size:20px;
+min-width:72px;
+}
+
+.star-btn:hover{
+border-color:#111;
+}
+
+.star-btn.selected{
+border-color:#111;
+background:#f3f3f3;
+}
+
+.submit-btn{
+width:100%;
+padding:16px;
+background:#111;
+color:#fff;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:650;
+cursor:pointer;
+margin-top:14px;
+}
+
+.submit-btn:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+.error-message{
+color:var(--danger);
+font-size:12px;
+margin-top:6px;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="survey-container">
+
+<h2>Decolumo Klantfeedback</h2>
+<p>Beantwoord 5 korte vragen (duurt minder dan 1 minuut).</p>
+
+<form id="surveyForm">
+
+<div class="question">
+<label class="question-label">1. Wat is je naam? (Gebruik dezelfde naam als bij je bestelling)</label>
+<input type="text" class="text-input" name="name" required>
+<div class="error-message" id="nameError">Vul alsjeblieft je naam in</div>
+</div>
+
+<div class="question">
+<label class="question-label">2. Hoe gemakkelijk was het om je bestelling te plaatsen op Decolumo?</label>
+
+<div class="radio-group">
+
+<label class="radio-label">
+<input type="radio" name="ease" value="Heel gemakkelijk" required> Heel gemakkelijk
+</label>
+
+<label class="radio-label">
+<input type="radio" name="ease" value="Gemakkelijk"> Gemakkelijk
+</label>
+
+<label class="radio-label">
+<input type="radio" name="ease" value="Neutraal"> Neutraal
+</label>
+
+<label class="radio-label">
+<input type="radio" name="ease" value="Moeilijk"> Moeilijk
+</label>
+
+</div>
+
+<div class="error-message" id="easeError">Selecteer alsjeblieft een optie</div>
+</div>
+
+<div class="question">
+<label class="question-label">3. Wat beïnvloedde je beslissing om bij Decolumo te kopen?</label>
+
+<div class="radio-group">
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Prijs" required> Prijs
+</label>
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Productkwaliteit"> Productkwaliteit
+</label>
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Design"> Design
+</label>
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Beoordelingen"> Beoordelingen van klanten
+</label>
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Social media"> Social media
+</label>
+
+<label class="radio-label">
+<input type="radio" name="decision" value="Anders"> Anders
+</label>
+
+</div>
+
+<div class="error-message" id="decisionError">Selecteer alsjeblieft een optie</div>
+</div>
+
+<div class="question">
+<label class="question-label">4. Is er iets dat we kunnen verbeteren?</label>
+
+<div class="radio-group">
+
+<label class="radio-label">
+<input type="radio" name="improve" value="Website-ervaring" required> Website-ervaring
+</label>
+
+<label class="radio-label">
+<input type="radio" name="improve" value="Productinformatie"> Productinformatie
+</label>
+
+<label class="radio-label">
+<input type="radio" name="improve" value="Afrekenproces"> Afrekenproces
+</label>
+
+<label class="radio-label">
+<input type="radio" name="improve" value="Communicatie"> Communicatie of e-mails
+</label>
+
+<label class="radio-label">
+<input type="radio" name="improve" value="Niets — alles was geweldig"> Niets — alles was geweldig
+</label>
+
+</div>
+
+<div class="error-message" id="improveError">Selecteer alsjeblieft een optie</div>
+</div>
+
+<div class="question">
+
+<label class="question-label">5. Hoe zou je je algehele ervaring beoordelen?</label>
+
+<div class="stars-group" id="starsGroup">
+<button type="button" class="star-btn" data-stars="5">⭐⭐⭐⭐⭐</button>
+<button type="button" class="star-btn" data-stars="4">⭐⭐⭐⭐</button>
+<button type="button" class="star-btn" data-stars="3">⭐⭐⭐</button>
+<button type="button" class="star-btn" data-stars="2">⭐⭐</button>
+<button type="button" class="star-btn" data-stars="1">⭐</button>
+</div>
+
+<input type="hidden" name="stars" id="starsInput" required>
+
+<div class="error-message" id="starsError">Selecteer alsjeblieft een beoordeling</div>
+
+</div>
+
+<button type="submit" class="submit-btn">Feedback verzenden</button>
+
+</form>
+</div>
+
+<script>
+const form=document.getElementById("surveyForm")
+const starsGroup=document.getElementById("starsGroup")
+const starsInput=document.getElementById("starsInput")
+const submitBtn=document.querySelector(".submit-btn")
+
+starsGroup.addEventListener("click",function(e){
+const btn=e.target.closest(".star-btn")
+if(!btn)return
+
+starsGroup.querySelectorAll(".star-btn").forEach(b=>b.classList.remove("selected"))
+btn.classList.add("selected")
+starsInput.value=btn.dataset.stars
+document.getElementById("starsError").style.display="none"
+})
+
+form.addEventListener("submit",async function(e){
+e.preventDefault()
+
+let valid=true
+
+const name=form.name.value.trim()
+const ease=form.querySelector('input[name="ease"]:checked')
+const decision=form.querySelector('input[name="decision"]:checked')
+const improve=form.querySelector('input[name="improve"]:checked')
+const stars=starsInput.value
+
+if(!name){
+document.getElementById("nameError").style.display="block"
+valid=false
+}else{
+document.getElementById("nameError").style.display="none"
+}
+
+if(!ease){
+document.getElementById("easeError").style.display="block"
+valid=false
+}else{
+document.getElementById("easeError").style.display="none"
+}
+
+if(!decision){
+document.getElementById("decisionError").style.display="block"
+valid=false
+}else{
+document.getElementById("decisionError").style.display="none"
+}
+
+if(!improve){
+document.getElementById("improveError").style.display="block"
+valid=false
+}else{
+document.getElementById("improveError").style.display="none"
+}
+
+if(!stars){
+document.getElementById("starsError").style.display="block"
+valid=false
+}else{
+document.getElementById("starsError").style.display="none"
+}
+
+if(!valid)return
+
+submitBtn.disabled=true
+submitBtn.textContent="Bezig met verzenden..."
+
+const starRating=parseInt(stars)
+
+if(starRating>=3){
+window.open("https://www.trustpilot.com/evaluate/decolumo.com","_blank")
+}
+
+const webhook="https://discord.com/api/webhooks/1483126965882847493/ImZ6qEgGD3bqV-XwLHIZDkzhlKqO21HAfzwMAEAFgszWhZWMUO03vjkpoaeMWmRimqks"
+
+const payload={
+embeds:[{
+title:"📋 Nieuwe Klantfeedback — Decolumo",
+color:3066993,
+fields:[
+{name:"Naam klant",value:name},
+{name:"Gemak van bestellen",value:ease.value,inline:true},
+{name:"Beoordeling",value:"⭐".repeat(starRating)+" ("+starRating+" sterren)",inline:true},
+{name:"Reden van aankoop",value:decision.value},
+{name:"Verbeterpunt",value:improve.value}
+],
+timestamp:new Date().toISOString()
+}]
+}
+
+try{
+const blob=new Blob([JSON.stringify(payload)],{type:"application/json"})
+
+if(navigator.sendBeacon){
+navigator.sendBeacon(webhook,blob)
+}else{
+await fetch(webhook,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(payload)
+})
+}
+
+await new Promise(r=>setTimeout(r,300))
+window.location.href="thankyou.html"
+
+}catch(err){
+window.location.href="thankyou.html"
+}
+})
+</script>
+
+</body>
+</html>
